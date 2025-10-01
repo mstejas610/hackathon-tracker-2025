@@ -12,6 +12,11 @@ on:
       - 'scripts/**'
       - '.github/workflows/**'
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   fetch-hackathons:
     runs-on: ubuntu-latest
@@ -21,6 +26,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -54,8 +60,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add data/hackathons.json
-        git add data/last_update.txt
+        git add data/
         git commit -m "🚀 Auto-update hackathon data - $(date '+%Y-%m-%d %H:%M:%S UTC')"
         git push
     
