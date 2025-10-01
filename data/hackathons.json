@@ -1,7 +1,7 @@
 [
   {
     "title": "Global AI Challenge 2025",
-    "description": "The world's largest AI hackathon bringing together developers, researchers, and innovators to solve pressing global challenges using artificial intelligence and machine learning.",
+    "description": "The world's largest AI hackathon bringing together developers, researchers, and innovators to solve pressing global challenges using artificial intelligence.",
     "startDate": "2025-02-15",
     "endDate": "2025-02-17",
     "registrationDeadline": "2025-02-10",
@@ -9,15 +9,20 @@
     "type": "online",
     "prizePool": "$100,000",
     "status": "upcoming",
-    "tags": ["AI", "Machine Learning", "Global", "Innovation"],
-    "registrationUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "websiteUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
+    "tags": [
+      "AI",
+      "Machine Learning",
+      "Global",
+      "Innovation"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
     "organizer": "AI Foundation",
     "source": "Curated"
   },
   {
     "title": "Climate Tech Hackathon 2025",
-    "description": "Build sustainable solutions for climate change. Focus on renewable energy, carbon tracking, and environmental impact reduction technologies.",
+    "description": "Build sustainable solutions for climate change. Focus on renewable energy, carbon tracking, and environmental impact reduction.",
     "startDate": "2025-03-22",
     "endDate": "2025-03-24",
     "registrationDeadline": "2025-03-15",
@@ -25,15 +30,19 @@
     "type": "hybrid",
     "prizePool": "$75,000",
     "status": "upcoming",
-    "tags": ["Climate Tech", "Sustainability", "Green Tech", "Environment"],
-    "registrationUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "websiteUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
+    "tags": [
+      "Climate Tech",
+      "Sustainability",
+      "Green Tech"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
     "organizer": "Green Future Initiative",
     "source": "Curated"
   },
   {
     "title": "Blockchain & Web3 Summit Hack",
-    "description": "Explore the future of decentralized applications, DeFi, and blockchain technology in this intensive 48-hour hackathon focused on Web3 innovation.",
+    "description": "Explore the future of decentralized applications, DeFi, and blockchain technology in this intensive hackathon.",
     "startDate": "2025-04-05",
     "endDate": "2025-04-07",
     "registrationDeadline": "2025-03-30",
@@ -41,15 +50,20 @@
     "type": "online",
     "prizePool": "$50,000",
     "status": "upcoming",
-    "tags": ["Blockchain", "Web3", "DeFi", "Crypto"],
-    "registrationUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "websiteUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
+    "tags": [
+      "Blockchain",
+      "Web3",
+      "DeFi",
+      "Crypto"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
     "organizer": "Web3 Alliance",
     "source": "Curated"
   },
   {
     "title": "Healthcare Innovation Hackathon",
-    "description": "Develop innovative healthcare solutions focusing on telemedicine, medical AI, patient care optimization, and digital health transformation.",
+    "description": "Develop innovative healthcare solutions focusing on telemedicine, medical AI, and patient care optimization.",
     "startDate": "2025-05-10",
     "endDate": "2025-05-12",
     "registrationDeadline": "2025-05-03",
@@ -57,42 +71,15 @@
     "type": "in-person",
     "prizePool": "$60,000",
     "status": "upcoming",
-    "tags": ["Healthcare", "MedTech", "AI", "Telemedicine"],
-    "registrationUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "websiteUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
+    "tags": [
+      "Healthcare",
+      "MedTech",
+      "AI",
+      "Telemedicine"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
     "organizer": "HealthTech Alliance",
-    "source": "Curated"
-  },
-  {
-    "title": "Cybersecurity Challenge 2025",
-    "description": "Showcase your cybersecurity skills in this intensive competition focused on ethical hacking, defense strategies, and security innovation.",
-    "startDate": "2025-06-15",
-    "endDate": "2025-06-17",
-    "registrationDeadline": "2025-06-08",
-    "location": "Online",
-    "type": "online",
-    "prizePool": "$40,000",
-    "status": "upcoming",
-    "tags": ["Cybersecurity", "Ethical Hacking", "Defense", "Security"],
-    "registrationUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "websiteUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "organizer": "SecureNet",
-    "source": "Curated"
-  },
-  {
-    "title": "FinTech Innovation Challenge",
-    "description": "Revolutionary financial technology solutions. Build the future of banking, payments, and financial services with cutting-edge technology.",
-    "startDate": "2025-07-20",
-    "endDate": "2025-07-22",
-    "registrationDeadline": "2025-07-13",
-    "location": "New York, NY",
-    "type": "hybrid",
-    "prizePool": "$80,000",
-    "status": "upcoming",
-    "tags": ["FinTech", "Banking", "Payments", "Finance"],
-    "registrationUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "websiteUrl": "https://github.com/mstejas610/hackathon-tracker-2025",
-    "organizer": "FinTech Consortium",
     "source": "Curated"
   }
 ]
