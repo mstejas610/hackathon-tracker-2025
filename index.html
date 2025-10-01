@@ -1,465 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackathon Tracker 2025</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-        .stat-card {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            color: white;
-            min-width: 150px;
-        }
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            display: block;
-        }
-        .filters {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
-        }
-        .filter-group {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        select, input {
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: white;
-            color: #333;
-        }
-        .hackathons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .hackathon-card {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .hackathon-card:hover {
-            transform: translateY(-5px);
-        }
-        .hackathon-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
-        .hackathon-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-        .hackathon-meta {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .hackathon-description {
-            margin-bottom: 15px;
-            color: #555;
-            line-height: 1.6;
-        }
-        .hackathon-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-        .tag {
-            background: #e3f2fd;
-            color: #1976d2;
-            padding: 4px 8px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-        }
-        .hackathon-actions {
-            display: flex;
-            gap: 10px;
-        }
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-        .btn-primary:hover {
-            background: #5a67d8;
-        }
-        .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-        }
-        .btn-secondary:hover {
-            background: #cbd5e0;
-        }
-        .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .status-active {
-            background: #10b981;
-            color: white;
-        }
-        .status-upcoming {
-            background: #f59e0b;
-            color: white;
-        }
-        .status-ended {
-            background: #6b7280;
-            color: white;
-        }
-        .loading {
-            text-align: center;
-            color: white;
-            font-size: 1.2rem;
-            margin: 40px 0;
-        }
-        .update-info {
-            text-align: center;
-            color: rgba(255,255,255,0.8);
-            margin-top: 30px;
-            font-size: 0.9rem;
-        }
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            .stats {
-                gap: 15px;
-            }
-            .filter-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hackathon Tracker 2025</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    margin: 0; padding: 20px;
+  }
+  .container {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+  h1 {
+    text-align: center;
+    color: #764ba2;
+    margin-bottom: 20px;
+  }
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+  }
+  .stat {
+    background: #f4f4f4;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #764ba2;
+    width: 30%;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+  .tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .tab-btn {
+    background: transparent;
+    border: 2px solid #764ba2;
+    color: #764ba2;
+    cursor: pointer;
+    padding: 8px 20px;
+    margin: 0 5px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .tab-btn.active,
+  .tab-btn:hover {
+    background: #764ba2;
+    color: white;
+  }
+  .hackathon-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    gap: 20px;
+  }
+  .hack-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .hack-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #4a2c9a;
+    margin-bottom: 8px;
+  }
+  .hack-desc {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    min-height: 50px;
+  }
+  .hack-info {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+  .status {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .ongoing { background: #e74c3c; }
+  .upcoming { background: #f39c12; }
+  .completed { background: #27ae60; }
+  .register-btn {
+    display: inline-block;
+    background: #764ba2;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  .register-btn:hover {
+    background: #5a3686;
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-code"></i> Hackathon Tracker 2025</h1>
-            <p class="subtitle">Your one-stop destination for all active and upcoming hackathons</p>
-        </header>
+ <div class="container">
+   <h1>🚀 Hackathon Tracker 2025</h1>
+   <div class="stats">
+     <div class="stat" id="stat-ongoing">Live: 0</div>
+     <div class="stat" id="stat-upcoming">Upcoming: 0</div>
+     <div class="stat" id="stat-completed">Completed: 0</div>
+   </div>
+   <div class="tabs">
+     <button class="tab-btn active" id="tab-ongoing">Live Now</button>
+     <button class="tab-btn" id="tab-upcoming">Upcoming</button>
+     <button class="tab-btn" id="tab-completed">Completed</button>
+   </div>
+   <div class="hackathon-list" id="hackathon-list">
+     Loading hackathons...
+   </div>
+ </div>
 
-        <div class="stats">
-            <div class="stat-card">
-                <span class="stat-number" id="active-count">0</span>
-                <span>Active Now</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number" id="upcoming-count">0</span>
-                <span>Upcoming</span>
-            </div>
-            <div class="stat-card">
-                <span class="stat-number" id="total-count">0</span>
-                <span>Total Tracked</span>
-            </div>
-        </div>
+<script>
+  let hackathonData = null;
+  let currentTab = 'ongoing';
 
-        <div class="filters">
-            <div class="filter-group">
-                <select id="status-filter">
-                    <option value="all">All Status</option>
-                    <option value="active">Active</option>
-                    <option value="upcoming">Upcoming</option>
-                    <option value="ended">Recently Ended</option>
-                </select>
-                <select id="type-filter">
-                    <option value="all">All Types</option>
-                    <option value="online">Online</option>
-                    <option value="hybrid">Hybrid</option>
-                    <option value="in-person">In-Person</option>
-                </select>
-                <input type="text" id="search-input" placeholder="Search hackathons...">
-                <select id="sort-filter">
-                    <option value="deadline">Sort by Deadline</option>
-                    <option value="prize">Sort by Prize Pool</option>
-                    <option value="name">Sort by Name</option>
-                </select>
-            </div>
-        </div>
+  async function fetchData() {
+    try {
+      const res = await fetch('data/hackathons.json');
+      if(!res.ok) throw new Error('Failed to load data');
+      hackathonData = await res.json();
+      updateStats();
+      showTab(currentTab);
+    } catch (err) {
+      document.getElementById('hackathon-list').innerHTML = 
+        '<p style="color:red; text-align:center;">Failed to load hackathon data.</p>';
+      console.error(err);
+    }
+  }
 
-        <div class="loading" id="loading">
-            <i class="fas fa-spinner fa-spin"></i> Loading hackathons...
-        </div>
+  function updateStats() {
+    document.getElementById('stat-ongoing').textContent = `Live: ${hackathonData.ongoing.length}`;
+    document.getElementById('stat-upcoming').textContent = `Upcoming: ${hackathonData.upcoming.length}`;
+    document.getElementById('stat-completed').textContent = `Completed: ${hackathonData.completed.length}`;
+  }
 
-        <div class="hackathons-grid" id="hackathons-grid" style="display: none;">
-            <!-- Hackathons will be loaded here -->
-        </div>
+  function showTab(tab) {
+    currentTab = tab;
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+    
+    const list = hackathonData[tab];
+    if(!list || list.length === 0) {
+      document.getElementById('hackathon-list').innerHTML = `<p>No ${tab} hackathons currently.</p>`;
+      return;
+    }
+    
+    const html = list.map(h => `
+      <div class="hack-card">
+        <div class="hack-name">${h.name}</div>
+        <div class="status ${h.status}">${capitalize(h.status)}</div>
+        <div class="hack-desc">${h.description}</div>
+        <div class="hack-info"><b>Dates:</b> ${formatDate(h.start_date)} - ${formatDate(h.end_date)}</div>
+        <div class="hack-info"><b>Location:</b> ${h.location}</div>
+        <div class="hack-info"><b>Prizes:</b> ${h.prizes}</div>
+        <a href="${h.registration_link}" target="_blank" class="register-btn">${tab === 'completed' ? 'View Details' : 'Register'}</a>
+      </div>
+    `).join('');
+    
+    document.getElementById('hackathon-list').innerHTML = html;
+  }
 
-        <div class="update-info">
-            <i class="fas fa-sync-alt"></i> Last updated: <span id="last-update">Never</span><br>
-            <small>Data automatically refreshed every 6 hours via GitHub Actions</small>
-        </div>
-    </div>
+  function capitalize(str) {
+    if(!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
-    <script>
-        // Sample data structure - will be replaced by automated data fetching
-        let hackathonsData = [];
+  function formatDate(str) {
+    const d = new Date(str);
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  }
 
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', function() {
-            loadHackathons();
-            setupFilters();
-        });
+  document.getElementById('tab-ongoing').addEventListener('click', () => showTab('ongoing'));
+  document.getElementById('tab-upcoming').addEventListener('click', () => showTab('upcoming'));
+  document.getElementById('tab-completed').addEventListener('click', () => showTab('completed'));
 
-        async function loadHackathons() {
-            try {
-                // This will later fetch from hackathons.json generated by GitHub Actions
-                const response = await fetch('data/hackathons.json').catch(() => {
-                    // Fallback to sample data if file doesn't exist yet
-                    return { ok: false };
-                });
-                
-                if (response.ok) {
-                    hackathonsData = await response.json();
-                } else {
-                    // Sample data for initial deployment
-                    hackathonsData = generateSampleData();
-                }
-                
-                renderHackathons();
-                updateStats();
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('hackathons-grid').style.display = 'grid';
-                document.getElementById('last-update').textContent = new Date().toLocaleString();
-            } catch (error) {
-                console.error('Error loading hackathons:', error);
-                document.getElementById('loading').innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error loading hackathons. Please try again later.';
-            }
-        }
-
-        function generateSampleData() {
-            return [
-                {
-                    title: "AI/ML Global Hackathon 2025",
-                    description: "Build innovative AI solutions to solve real-world problems. Open to all skill levels with mentorship provided.",
-                    startDate: "2025-01-15",
-                    endDate: "2025-01-17",
-                    registrationDeadline: "2025-01-10",
-                    location: "Online",
-                    type: "online",
-                    prizePool: "$50,000",
-                    status: "upcoming",
-                    tags: ["AI", "Machine Learning", "Open Source"],
-                    registrationUrl: "#",
-                    websiteUrl: "#",
-                    organizer: "Tech Corp"
-                },
-                {
-                    title: "Cybersecurity Challenge 2025",
-                    description: "Showcase your cybersecurity skills in this intensive 48-hour competition focused on ethical hacking and defense.",
-                    startDate: "2025-02-01",
-                    endDate: "2025-02-03",
-                    registrationDeadline: "2025-01-25",
-                    location: "San Francisco, CA",
-                    type: "hybrid",
-                    prizePool: "$25,000",
-                    status: "upcoming",
-                    tags: ["Cybersecurity", "Ethical Hacking", "Defense"],
-                    registrationUrl: "#",
-                    websiteUrl: "#",
-                    organizer: "SecureNet"
-                }
-            ];
-        }
-
-        function renderHackathons() {
-            const grid = document.getElementById('hackathons-grid');
-            const filteredData = getFilteredHackathons();
-            
-            grid.innerHTML = filteredData.map(hackathon => `
-                <div class="hackathon-card">
-                    <div class="status-badge status-${hackathon.status}">
-                        ${hackathon.status.charAt(0).toUpperCase() + hackathon.status.slice(1)}
-                    </div>
-                    <div class="hackathon-title">${hackathon.title}</div>
-                    <div class="hackathon-meta">
-                        <div class="meta-item">
-                            <i class="fas fa-calendar"></i>
-                            ${formatDateRange(hackathon.startDate, hackathon.endDate)}
-                        </div>
-                        <div class="meta-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            ${hackathon.location}
-                        </div>
-                        <div class="meta-item">
-                            <i class="fas fa-trophy"></i>
-                            ${hackathon.prizePool}
-                        </div>
-                    </div>
-                    <div class="hackathon-description">
-                        ${hackathon.description}
-                    </div>
-                    <div class="hackathon-tags">
-                        ${hackathon.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                    <div class="hackathon-actions">
-                        <a href="${hackathon.registrationUrl}" class="btn btn-primary" target="_blank">
-                            <i class="fas fa-external-link-alt"></i> Register
-                        </a>
-                        <a href="${hackathon.websiteUrl}" class="btn btn-secondary" target="_blank">
-                            <i class="fas fa-info-circle"></i> Details
-                        </a>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function getFilteredHackathons() {
-            let filtered = [...hackathonsData];
-            
-            const statusFilter = document.getElementById('status-filter').value;
-            const typeFilter = document.getElementById('type-filter').value;
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const sortBy = document.getElementById('sort-filter').value;
-            
-            if (statusFilter !== 'all') {
-                filtered = filtered.filter(h => h.status === statusFilter);
-            }
-            
-            if (typeFilter !== 'all') {
-                filtered = filtered.filter(h => h.type === typeFilter);
-            }
-            
-            if (searchTerm) {
-                filtered = filtered.filter(h => 
-                    h.title.toLowerCase().includes(searchTerm) ||
-                    h.description.toLowerCase().includes(searchTerm) ||
-                    h.tags.some(tag => tag.toLowerCase().includes(searchTerm))
-                );
-            }
-            
-            // Sort
-            filtered.sort((a, b) => {
-                switch (sortBy) {
-                    case 'deadline':
-                        return new Date(a.registrationDeadline) - new Date(b.registrationDeadline);
-                    case 'prize':
-                        return parseInt(b.prizePool.replace(/[^\d]/g, '')) - parseInt(a.prizePool.replace(/[^\d]/g, ''));
-                    case 'name':
-                        return a.title.localeCompare(b.title);
-                    default:
-                        return 0;
-                }
-            });
-            
-            return filtered;
-        }
-
-        function updateStats() {
-            const activeCount = hackathonsData.filter(h => h.status === 'active').length;
-            const upcomingCount = hackathonsData.filter(h => h.status === 'upcoming').length;
-            const totalCount = hackathonsData.length;
-            
-            document.getElementById('active-count').textContent = activeCount;
-            document.getElementById('upcoming-count').textContent = upcomingCount;
-            document.getElementById('total-count').textContent = totalCount;
-        }
-
-        function setupFilters() {
-            ['status-filter', 'type-filter', 'search-input', 'sort-filter'].forEach(id => {
-                document.getElementById(id).addEventListener('change', renderHackathons);
-            });
-            
-            document.getElementById('search-input').addEventListener('input', renderHackathons);
-        }
-
-        function formatDateRange(start, end) {
-            const startDate = new Date(start);
-            const endDate = new Date(end);
-            
-            const options = { month: 'short', day: 'numeric' };
-            
-            if (startDate.getMonth() === endDate.getMonth()) {
-                return `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.getDate()}`;
-            } else {
-                return `${startDate.toLocaleDateString('en-US', options)} - ${endDate.toLocaleDateString('en-US', options)}`;
-            }
-        }
-    </script>
+  fetchData();
+</script>
 </body>
 </html>
