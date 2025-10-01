@@ -1,0 +1,85 @@
+[
+  {
+    "title": "Global AI Challenge 2025",
+    "description": "The world's largest AI hackathon bringing together developers, researchers, and innovators to solve pressing global challenges using artificial intelligence.",
+    "startDate": "2025-02-15",
+    "endDate": "2025-02-17",
+    "registrationDeadline": "2025-02-10",
+    "location": "Online",
+    "type": "online",
+    "prizePool": "$100,000",
+    "status": "upcoming",
+    "tags": [
+      "AI",
+      "Machine Learning",
+      "Global",
+      "Innovation"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
+    "organizer": "AI Foundation",
+    "source": "Curated"
+  },
+  {
+    "title": "Climate Tech Hackathon 2025",
+    "description": "Build sustainable solutions for climate change. Focus on renewable energy, carbon tracking, and environmental impact reduction.",
+    "startDate": "2025-03-22",
+    "endDate": "2025-03-24",
+    "registrationDeadline": "2025-03-15",
+    "location": "San Francisco, CA",
+    "type": "hybrid",
+    "prizePool": "$75,000",
+    "status": "upcoming",
+    "tags": [
+      "Climate Tech",
+      "Sustainability",
+      "Green Tech"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
+    "organizer": "Green Future Initiative",
+    "source": "Curated"
+  },
+  {
+    "title": "Blockchain & Web3 Summit Hack",
+    "description": "Explore the future of decentralized applications, DeFi, and blockchain technology in this intensive hackathon.",
+    "startDate": "2025-04-05",
+    "endDate": "2025-04-07",
+    "registrationDeadline": "2025-03-30",
+    "location": "Online",
+    "type": "online",
+    "prizePool": "$50,000",
+    "status": "upcoming",
+    "tags": [
+      "Blockchain",
+      "Web3",
+      "DeFi",
+      "Crypto"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
+    "organizer": "Web3 Alliance",
+    "source": "Curated"
+  },
+  {
+    "title": "Healthcare Innovation Hackathon",
+    "description": "Develop innovative healthcare solutions focusing on telemedicine, medical AI, and patient care optimization.",
+    "startDate": "2025-05-10",
+    "endDate": "2025-05-12",
+    "registrationDeadline": "2025-05-03",
+    "location": "Boston, MA",
+    "type": "in-person",
+    "prizePool": "$60,000",
+    "status": "upcoming",
+    "tags": [
+      "Healthcare",
+      "MedTech",
+      "AI",
+      "Telemedicine"
+    ],
+    "registrationUrl": "#",
+    "websiteUrl": "#",
+    "organizer": "HealthTech Alliance",
+    "source": "Curated"
+  }
+]
