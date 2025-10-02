@@ -4,9 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hackathon Tracker 2025 - Live Updates</title>
-    <link href="https://fonts.googleapis.com/css2?family=Eucalyptus:wght@400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            /* Brand Colors */
+            --primary-blue: #2563eb;
+            --deep-purple: #5f36bc;
+            --light-gray: #f7f8fa;
+            --charcoal: #21222c;
+            --green-accent: #27ae60;
+            --yellow-accent: #ffbe14;
+            --red-accent: #e74c3c;
+            
+            /* UI Colors */
+            --background: #ffffff;
+            --surface: #ffffff;
+            --surface-elevated: #ffffff;
+            --border: #e5e7eb;
+            --border-light: #f3f4f6;
+            --text-primary: #21222c;
+            --text-secondary: #6b7280;
+            --text-tertiary: #9ca3af;
+            --text-inverse: #ffffff;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.15);
+            
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            
+            /* Typography */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            --font-size-5xl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -15,242 +68,178 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            color: #1e2938;
+            color: var(--text-primary);
             line-height: 1.6;
+            font-size: var(--font-size-base);
         }
         
         /* Header Styles */
         .header {
             background: transparent;
-            color: white;
-            padding: 40px 0 60px;
+            color: var(--text-inverse);
+            padding: var(--space-2xl) 0;
             text-align: center;
         }
         
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--space-lg);
         }
         
         .header h1 {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
-            margin-bottom: 20px;
-            font-weight: 700;
+            font-size: clamp(var(--font-size-4xl), 5vw, var(--font-size-5xl));
+            margin-bottom: var(--space-lg);
+            font-weight: 800;
             letter-spacing: -0.02em;
-            color: white;
+            color: var(--text-inverse);
+            line-height: 1.1;
         }
         
         .header-subtitle {
-            font-size: 1.2rem;
+            font-size: var(--font-size-xl);
             opacity: 0.9;
-            margin-bottom: 30px;
+            margin-bottom: var(--space-xl);
             font-weight: 400;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
         }
         
-        /* Filter Section */
+        /* Sticky Filter Bar */
+        .filters-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            padding: var(--space-md) 0;
+            margin-bottom: var(--space-xl);
+        }
+        
         .filters-section {
             max-width: 1200px;
-            margin: 0 auto 40px;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
         }
         
         .filters-container {
             display: flex;
-            gap: 20px;
+            gap: var(--space-md);
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .filter-label {
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
         
         .filter-dropdown {
-            background: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 1rem;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-size-base);
             font-weight: 500;
-            color: #374151;
+            color: var(--text-primary);
             cursor: pointer;
-            min-width: 150px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            min-width: 160px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
         
         .filter-dropdown:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .filter-dropdown:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
         
         /* Container and Layout */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Hackathon Cards Grid */
-        .hackathons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-        
-        .hackathon-card {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            position: relative;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .hackathon-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Status and Location Tags */
-        .card-tags {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
-        }
-        
-        .status-tag {
-            background: #00ed64;
-            color: #0d4f3c;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .location-tag {
-            background: #f3f4f6;
-            color: #6b7280;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        /* Title */
-        .hackathon-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-        
-        /* Date Badge */
-        .date-badge {
-            background: #00ed64;
-            color: #0d4f3c;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
-        
-        /* Description */
-        .hackathon-description {
-            color: #6b7280;
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-        }
-        
-        /* Action Button */
-        .action-btn {
-            background: transparent;
-            color: #1f2937;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 0;
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .action-btn:hover {
-            color: #00bf63;
-        }
-        
-        .action-btn i {
-            transition: transform 0.3s ease;
-        }
-        
-        .action-btn:hover i {
-            transform: translateX(3px);
+            padding: 0 var(--space-lg);
         }
         
         /* Statistics Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
         }
         
         .stat-card {
-            background: white;
-            padding: 30px 25px;
-            border-radius: 24px;
+            background: var(--surface-elevated);
+            padding: var(--space-xl);
+            border-radius: var(--radius-xl);
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--deep-purple));
         }
         
         .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
         
         .stat-card .icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            background: #f0fdf4;
-            border-radius: 16px;
+            width: 72px;
+            height: 72px;
+            margin: 0 auto var(--space-lg);
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #00bf63;
-            font-size: 24px;
+            color: var(--text-inverse);
+            font-size: 28px;
         }
         
         .stat-card h3 {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-            font-weight: 700;
-            color: #1f2937;
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--space-xs);
+            font-weight: 800;
+            color: var(--text-primary);
         }
         
         .stat-card p {
-            color: #6b7280;
-            font-size: 1rem;
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
             font-weight: 500;
         }
         
@@ -258,149 +247,373 @@
         .nav-tabs {
             display: flex;
             justify-content: center;
-            gap: 0;
-            background: white;
-            border-radius: 16px;
-            padding: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 40px;
+            gap: var(--space-xs);
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xs);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            margin-bottom: var(--space-2xl);
             overflow: hidden;
         }
         
         .nav-tab {
             flex: 1;
-            padding: 14px 24px;
+            padding: var(--space-md) var(--space-lg);
             border: none;
             background: transparent;
-            color: #6b7280;
+            color: var(--text-secondary);
             cursor: pointer;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-base);
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             font-family: inherit;
+            white-space: nowrap;
         }
         
         .nav-tab:hover {
-            background: #f9fafb;
-            color: #374151;
+            background: var(--border-light);
+            color: var(--text-primary);
         }
         
         .nav-tab.active {
-            background: #00ed64;
-            color: #0d4f3c;
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Hackathon Cards Grid */
+        .hackathons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .hackathon-card {
+            background: var(--surface-elevated);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+        
+        .hackathon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--green-accent);
+            transition: all 0.3s ease;
+        }
+        
+        .hackathon-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .hackathon-card:hover::before {
+            height: 6px;
+        }
+        
+        /* Status and Location Tags */
+        .card-tags {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        
+        .status-tag {
+            background: var(--green-accent);
+            color: var(--text-inverse);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .status-tag::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.8;
+        }
+        
+        .location-tag {
+            background: var(--border-light);
+            color: var(--text-secondary);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .location-tag::before {
+            content: '\f3c5';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: var(--font-size-xs);
+        }
+        
+        /* Title */
+        .hackathon-title {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-lg);
+            line-height: 1.3;
+        }
+        
+        /* Date Badge */
+        .date-badge {
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
+            color: var(--text-inverse);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+        
+        .date-badge::before {
+            content: '\f073';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+        
+        /* Description */
+        .hackathon-description {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            margin-bottom: var(--space-xl);
+        }
+        
+        /* Prize Pool */
+        .prize-pool {
+            background: var(--yellow-accent);
+            color: var(--charcoal);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .prize-pool::before {
+            content: '\f091';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+        
+        /* Action Button */
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-lg);
+            padding: var(--space-md) var(--space-lg);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            font-family: inherit;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, #1d4ed8, #4c1d95);
+        }
+        
+        .action-btn:active {
+            transform: translateY(0);
+        }
+        
+        .action-btn i {
+            transition: transform 0.2s ease;
+        }
+        
+        .action-btn:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Status-specific styles */
+        .status-ongoing .status-tag {
+            background: var(--red-accent);
+        }
+        
+        .status-ongoing .hackathon-card::before {
+            background: var(--red-accent);
+        }
+        
+        .status-upcoming .status-tag {
+            background: var(--yellow-accent);
+            color: var(--charcoal);
+        }
+        
+        .status-upcoming .hackathon-card::before {
+            background: var(--yellow-accent);
+        }
+        
+        .status-completed .status-tag {
+            background: var(--green-accent);
+        }
+        
+        .status-completed .hackathon-card::before {
+            background: var(--green-accent);
+        }
+        
+        .status-completed .action-btn {
+            background: var(--text-secondary);
+        }
+        
+        .status-completed .action-btn:hover {
+            background: var(--charcoal);
         }
         
         /* Loading and Error States */
         .loading {
             text-align: center;
-            padding: 80px 20px;
+            padding: var(--space-2xl);
             color: rgba(255, 255, 255, 0.8);
-            font-size: 1.2rem;
+            font-size: var(--font-size-xl);
         }
         
         .loading i {
-            font-size: 2rem;
-            color: #00ed64;
-            margin-bottom: 20px;
+            font-size: var(--font-size-4xl);
+            color: var(--text-inverse);
+            margin-bottom: var(--space-lg);
         }
         
         .error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 2px solid rgba(239, 68, 68, 0.3);
-            color: #dc2626;
-            padding: 40px;
-            border-radius: 24px;
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            color: var(--red-accent);
+            padding: var(--space-2xl);
+            border-radius: var(--radius-xl);
             text-align: center;
-            margin: 20px 0;
+            margin: var(--space-lg) 0;
         }
         
         .no-results {
             text-align: center;
             color: rgba(255, 255, 255, 0.8);
-            padding: 60px 20px;
-            font-size: 1.1rem;
+            padding: var(--space-2xl);
+            font-size: var(--font-size-lg);
         }
         
         .no-results i {
-            font-size: 3rem;
+            font-size: var(--font-size-5xl);
             color: rgba(255, 255, 255, 0.3);
-            margin-bottom: 20px;
+            margin-bottom: var(--space-lg);
         }
         
         .no-results h3 {
-            color: white;
-            margin-bottom: 10px;
-        }
-        
-        /* Status-specific styles */
-        .status-ongoing .status-tag {
-            background: #ef4444;
-            color: white;
-        }
-        
-        .status-ongoing .date-badge {
-            background: #fef2f2;
-            color: #dc2626;
-        }
-        
-        .status-upcoming .status-tag {
-            background: #f59e0b;
-            color: white;
-        }
-        
-        .status-upcoming .date-badge {
-            background: #fffbeb;
-            color: #d97706;
-        }
-        
-        .status-completed .status-tag {
-            background: #10b981;
-            color: white;
-        }
-        
-        .status-completed .date-badge {
-            background: #ecfdf5;
-            color: #059669;
+            color: var(--text-inverse);
+            margin-bottom: var(--space-sm);
+            font-weight: 600;
         }
         
         /* Update info */
         .update-info {
             text-align: center;
             color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-            margin-top: 20px;
+            font-size: var(--font-size-sm);
+            margin-top: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
         }
         
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hackathons-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: var(--space-lg);
+            }
+        }
+        
         @media (max-width: 768px) {
+            :root {
+                --space-lg: 1rem;
+                --space-xl: 2rem;
+                --space-2xl: 2.5rem;
+            }
+            
             .hackathons-grid {
                 grid-template-columns: 1fr;
-                gap: 25px;
+                gap: var(--space-lg);
             }
             
             .filters-container {
                 flex-direction: column;
-                align-items: center;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
             }
             
             .filter-dropdown {
-                width: 100%;
-                max-width: 300px;
+                min-width: unset;
+                flex: 1;
             }
             
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
+                gap: var(--space-md);
             }
             
             .nav-tabs {
                 flex-direction: column;
             }
             
+            .nav-tab {
+                padding: var(--space-md);
+            }
+            
             .hackathon-card {
-                padding: 25px;
+                padding: var(--space-lg);
+            }
+            
+            .card-tags {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-sm);
             }
         }
         
@@ -409,10 +622,44 @@
                 grid-template-columns: 1fr;
             }
             
-            .card-tags {
-                flex-direction: column;
-                align-items: flex-start;
+            .header h1 {
+                font-size: var(--font-size-4xl);
             }
+            
+            .header-subtitle {
+                font-size: var(--font-size-lg);
+            }
+            
+            .hackathon-title {
+                font-size: var(--font-size-xl);
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hackathon-card {
+            animation: fadeInUp 0.5s ease;
         }
     </style>
 </head>
@@ -429,24 +676,36 @@
         </div>
     </div>
 
-    <!-- Filters Section -->
-    <div class="filters-section">
-        <div class="filters-container">
-            <select class="filter-dropdown" id="event-type-filter">
-                <option value="">Event Type</option>
-                <option value="hackathon">Hackathon</option>
-                <option value="webinar">Webinar</option>
-                <option value="workshop">Workshop</option>
-                <option value="competition">Competition</option>
-            </select>
-            <select class="filter-dropdown" id="region-filter">
-                <option value="">Region</option>
-                <option value="online">Online</option>
-                <option value="north-america">North America</option>
-                <option value="europe">Europe</option>
-                <option value="asia">Asia</option>
-                <option value="global">Global</option>
-            </select>
+    <!-- Sticky Filters Section -->
+    <div class="filters-sticky">
+        <div class="filters-section">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <span class="filter-label">
+                        <i class="fas fa-tag"></i> Event Type
+                    </span>
+                    <select class="filter-dropdown" id="event-type-filter">
+                        <option value="">All Types</option>
+                        <option value="hackathon">Hackathon</option>
+                        <option value="webinar">Webinar</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="competition">Competition</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">
+                        <i class="fas fa-globe"></i> Region
+                    </span>
+                    <select class="filter-dropdown" id="region-filter">
+                        <option value="">All Regions</option>
+                        <option value="online">Online</option>
+                        <option value="north-america">North America</option>
+                        <option value="europe">Europe</option>
+                        <option value="asia">Asia</option>
+                        <option value="global">Global</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -487,9 +746,18 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-tab active" data-status="ongoing">Live Now</button>
-            <button class="nav-tab" data-status="upcoming">Upcoming</button>
-            <button class="nav-tab" data-status="completed">Completed</button>
+            <button class="nav-tab active" data-status="ongoing">
+                <i class="fas fa-circle" style="color: var(--red-accent);"></i>
+                Live Now
+            </button>
+            <button class="nav-tab" data-status="upcoming">
+                <i class="fas fa-clock" style="color: var(--yellow-accent);"></i>
+                Upcoming
+            </button>
+            <button class="nav-tab" data-status="completed">
+                <i class="fas fa-check" style="color: var(--green-accent);"></i>
+                Completed
+            </button>
         </div>
 
         <!-- Hackathons Grid -->
@@ -650,6 +918,9 @@
                 hackathon.status === 'upcoming' ?
                 `${formatDate(hackathon.start_date)} - ${formatDate(hackathon.end_date)}` :
                 `Ended ${formatDate(hackathon.end_date)}`;
+            
+            const prizePoolHTML = hackathon.prize_pool ? 
+                `<div class="prize-pool">${hackathon.prize_pool}</div>` : '';
 
             return `
                 <div class="hackathon-card ${statusClass}">
@@ -662,10 +933,12 @@
                     
                     <div class="date-badge">${dateText}</div>
                     
+                    ${prizePoolHTML}
+                    
                     <p class="hackathon-description">${hackathon.description}</p>
                     
                     <a href="${hackathon.registration_link}" target="_blank" class="action-btn">
-                        ${actionText} <i class="fas fa-arrow-right"></i>
+                        ${actionText} <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
             `;
