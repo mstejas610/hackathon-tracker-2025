@@ -8,41 +8,27 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            /* Brand Colors */
-            --primary-blue: #2563eb;
-            --deep-purple: #5f36bc;
-            --light-gray: #f7f8fa;
-            --charcoal: #21222c;
-            --green-accent: #27ae60;
-            --yellow-accent: #ffbe14;
-            --red-accent: #e74c3c;
-            
-            /* UI Colors */
-            --background: #ffffff;
-            --surface: #ffffff;
-            --surface-elevated: #ffffff;
-            --border: #e5e7eb;
-            --border-light: #f3f4f6;
-            --text-primary: #21222c;
-            --text-secondary: #6b7280;
-            --text-tertiary: #9ca3af;
+            /* Brand Colors - Modern Design Language */
+            --brand-bg: #07202B;
+            --brand-card: #ffffff;
+            --accent-green: #98FF46;
+            --accent-blue: #6EE0FF;
+            --text-main: #07202B;
+            --text-muted: #576272;
             --text-inverse: #ffffff;
             
-            /* Shadows */
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.15);
+            /* UI Colors */
+            --surface-elevated: #ffffff;
+            --border-color: rgba(7, 32, 43, 0.1);
+            --border-light: rgba(7, 32, 43, 0.05);
             
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-2xl: 4rem;
+            /* Shadows */
+            --card-shadow: 0 4px 24px rgba(7, 32, 43, 0.07);
+            --card-shadow-hover: 0 8px 32px rgba(7, 32, 43, 0.12);
+            --card-shadow-elevated: 0 12px 40px rgba(7, 32, 43, 0.15);
             
             /* Typography */
+            --font-family: 'Inter', 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
             --font-size-xs: 0.75rem;
             --font-size-sm: 0.875rem;
             --font-size-base: 1rem;
@@ -53,11 +39,19 @@
             --font-size-4xl: 2.25rem;
             --font-size-5xl: 3rem;
             
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 1.5rem;
+            --space-lg: 2rem;
+            --space-xl: 3rem;
+            --space-2xl: 4rem;
+            
             /* Border Radius */
-            --radius-sm: 0.5rem;
-            --radius-md: 0.75rem;
-            --radius-lg: 1rem;
-            --radius-xl: 1.5rem;
+            --border-radius: 2rem;
+            --border-radius-md: 1rem;
+            --border-radius-sm: 0.75rem;
+            --border-radius-pill: 50px;
         }
         
         * {
@@ -67,10 +61,10 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: var(--font-family);
+            background: var(--brand-bg);
             min-height: 100vh;
-            color: var(--text-primary);
+            color: var(--text-inverse);
             line-height: 1.6;
             font-size: var(--font-size-base);
         }
@@ -100,7 +94,7 @@
         
         .header-subtitle {
             font-size: var(--font-size-xl);
-            opacity: 0.9;
+            opacity: 0.85;
             margin-bottom: var(--space-xl);
             font-weight: 400;
             max-width: 700px;
@@ -115,9 +109,9 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(7, 32, 43, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: var(--space-md) 0;
             margin-bottom: var(--space-xl);
         }
@@ -130,7 +124,7 @@
         
         .filters-container {
             display: flex;
-            gap: var(--space-md);
+            gap: var(--space-lg);
             justify-content: center;
             flex-wrap: wrap;
             align-items: center;
@@ -145,34 +139,39 @@
         .filter-label {
             font-size: var(--font-size-sm);
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--text-inverse);
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            opacity: 0.9;
         }
         
         .filter-dropdown {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
+            background: var(--brand-card);
+            border: 2px solid transparent;
+            border-radius: var(--border-radius-md);
             padding: var(--space-sm) var(--space-md);
             font-size: var(--font-size-base);
             font-weight: 500;
-            color: var(--text-primary);
+            color: var(--text-main);
             cursor: pointer;
             min-width: 160px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--card-shadow);
             transition: all 0.2s ease;
             font-family: inherit;
         }
         
         .filter-dropdown:hover {
-            border-color: var(--primary-blue);
-            box-shadow: var(--shadow-md);
+            border-color: var(--accent-green);
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-1px);
         }
         
         .filter-dropdown:focus {
             outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(152, 255, 70, 0.2);
         }
         
         /* Container and Layout */
@@ -191,12 +190,11 @@
         }
         
         .stat-card {
-            background: var(--surface-elevated);
+            background: var(--brand-card);
             padding: var(--space-xl);
-            border-radius: var(--radius-xl);
+            border-radius: var(--border-radius);
             text-align: center;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--card-shadow);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -208,37 +206,37 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--deep-purple));
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-blue));
         }
         
         .stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+            box-shadow: var(--card-shadow-elevated);
         }
         
         .stat-card .icon {
-            width: 72px;
-            height: 72px;
+            width: 80px;
+            height: 80px;
             margin: 0 auto var(--space-lg);
-            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
-            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            border-radius: var(--border-radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-inverse);
-            font-size: 28px;
+            color: var(--text-main);
+            font-size: 32px;
         }
         
         .stat-card h3 {
             font-size: var(--font-size-4xl);
             margin-bottom: var(--space-xs);
             font-weight: 800;
-            color: var(--text-primary);
+            color: var(--text-main);
         }
         
         .stat-card p {
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-size: var(--font-size-base);
             font-weight: 500;
         }
@@ -248,11 +246,10 @@
             display: flex;
             justify-content: center;
             gap: var(--space-xs);
-            background: var(--surface-elevated);
-            border-radius: var(--radius-xl);
+            background: var(--brand-card);
+            border-radius: var(--border-radius);
             padding: var(--space-xs);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--card-shadow);
             margin-bottom: var(--space-2xl);
             overflow: hidden;
         }
@@ -262,43 +259,46 @@
             padding: var(--space-md) var(--space-lg);
             border: none;
             background: transparent;
-            color: var(--text-secondary);
+            color: var(--text-muted);
             cursor: pointer;
-            border-radius: var(--radius-lg);
+            border-radius: var(--border-radius-md);
             font-size: var(--font-size-base);
             font-weight: 600;
             transition: all 0.2s ease;
             font-family: inherit;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
         }
         
         .nav-tab:hover {
-            background: var(--border-light);
-            color: var(--text-primary);
+            background: rgba(152, 255, 70, 0.1);
+            color: var(--text-main);
         }
         
         .nav-tab.active {
-            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
-            color: var(--text-inverse);
-            box-shadow: var(--shadow-sm);
+            background: var(--accent-green);
+            color: var(--text-main);
+            box-shadow: var(--card-shadow);
         }
         
         /* Hackathon Cards Grid */
         .hackathons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-            gap: var(--space-xl);
+            gap: var(--space-lg);
             margin-bottom: var(--space-2xl);
         }
         
         .hackathon-card {
-            background: var(--surface-elevated);
-            border-radius: var(--radius-xl);
+            background: var(--brand-card);
+            border-radius: var(--border-radius);
             padding: var(--space-xl);
             position: relative;
             transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-light);
+            box-shadow: var(--card-shadow);
             overflow: hidden;
         }
         
@@ -308,18 +308,18 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--green-accent);
+            height: 6px;
+            background: var(--accent-green);
             transition: all 0.3s ease;
         }
         
         .hackathon-card:hover {
             transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
+            box-shadow: var(--card-shadow-elevated);
         }
         
         .hackathon-card:hover::before {
-            height: 6px;
+            height: 8px;
         }
         
         /* Status and Location Tags */
@@ -333,10 +333,10 @@
         }
         
         .status-tag {
-            background: var(--green-accent);
-            color: var(--text-inverse);
+            background: var(--accent-green);
+            color: var(--text-main);
             padding: var(--space-xs) var(--space-md);
-            border-radius: var(--radius-lg);
+            border-radius: var(--border-radius-pill);
             font-size: var(--font-size-xs);
             font-weight: 700;
             text-transform: uppercase;
@@ -356,10 +356,10 @@
         }
         
         .location-tag {
-            background: var(--border-light);
-            color: var(--text-secondary);
+            background: rgba(110, 224, 255, 0.15);
+            color: var(--accent-blue);
             padding: var(--space-xs) var(--space-md);
-            border-radius: var(--radius-lg);
+            border-radius: var(--border-radius-pill);
             font-size: var(--font-size-xs);
             font-weight: 600;
             text-transform: uppercase;
@@ -370,7 +370,7 @@
         }
         
         .location-tag::before {
-            content: '\f3c5';
+            content: '\\f3c5';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             font-size: var(--font-size-xs);
@@ -380,17 +380,18 @@
         .hackathon-title {
             font-size: var(--font-size-2xl);
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--text-main);
             margin-bottom: var(--space-lg);
             line-height: 1.3;
+            letter-spacing: -0.01em;
         }
         
         /* Date Badge */
         .date-badge {
-            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
-            color: var(--text-inverse);
+            background: rgba(87, 98, 114, 0.1);
+            color: var(--text-muted);
             padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
+            border-radius: var(--border-radius-md);
             font-size: var(--font-size-sm);
             font-weight: 600;
             margin-bottom: var(--space-lg);
@@ -400,14 +401,14 @@
         }
         
         .date-badge::before {
-            content: '\f073';
+            content: '\\f073';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
         }
         
         /* Description */
         .hackathon-description {
-            color: var(--text-secondary);
+            color: var(--text-muted);
             font-size: var(--font-size-base);
             line-height: 1.6;
             margin-bottom: var(--space-xl);
@@ -415,10 +416,10 @@
         
         /* Prize Pool */
         .prize-pool {
-            background: var(--yellow-accent);
-            color: var(--charcoal);
+            background: rgba(152, 255, 70, 0.15);
+            color: var(--accent-green);
             padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-md);
+            border-radius: var(--border-radius-sm);
             font-size: var(--font-size-sm);
             font-weight: 700;
             display: inline-flex;
@@ -428,34 +429,36 @@
         }
         
         .prize-pool::before {
-            content: '\f091';
+            content: '\\f091';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
         }
         
         /* Action Button */
         .action-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--deep-purple));
-            color: var(--text-inverse);
+            background: var(--accent-green);
+            color: var(--text-main);
             border: none;
-            border-radius: var(--radius-lg);
+            border-radius: var(--border-radius-md);
             padding: var(--space-md) var(--space-lg);
             font-size: var(--font-size-base);
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: var(--space-sm);
             text-decoration: none;
             transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
+            box-shadow: var(--card-shadow);
             font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .action-btn:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-            background: linear-gradient(135deg, #1d4ed8, #4c1d95);
+            box-shadow: var(--card-shadow-hover);
+            background: #7EE526;
         }
         
         .action-btn:active {
@@ -472,36 +475,57 @@
         
         /* Status-specific styles */
         .status-ongoing .status-tag {
-            background: var(--red-accent);
+            background: #FF4757;
+            color: white;
         }
         
         .status-ongoing .hackathon-card::before {
-            background: var(--red-accent);
+            background: #FF4757;
+        }
+        
+        .status-ongoing .action-btn {
+            background: #FF4757;
+            color: white;
+        }
+        
+        .status-ongoing .action-btn:hover {
+            background: #E63946;
         }
         
         .status-upcoming .status-tag {
-            background: var(--yellow-accent);
-            color: var(--charcoal);
+            background: #FFA502;
+            color: white;
         }
         
         .status-upcoming .hackathon-card::before {
-            background: var(--yellow-accent);
+            background: #FFA502;
+        }
+        
+        .status-upcoming .action-btn {
+            background: var(--accent-blue);
+            color: var(--text-main);
+        }
+        
+        .status-upcoming .action-btn:hover {
+            background: #54D6FF;
         }
         
         .status-completed .status-tag {
-            background: var(--green-accent);
+            background: #2ED573;
+            color: white;
         }
         
         .status-completed .hackathon-card::before {
-            background: var(--green-accent);
+            background: #2ED573;
         }
         
         .status-completed .action-btn {
-            background: var(--text-secondary);
+            background: var(--text-muted);
+            color: white;
         }
         
         .status-completed .action-btn:hover {
-            background: var(--charcoal);
+            background: var(--text-main);
         }
         
         /* Loading and Error States */
@@ -514,18 +538,19 @@
         
         .loading i {
             font-size: var(--font-size-4xl);
-            color: var(--text-inverse);
+            color: var(--accent-green);
             margin-bottom: var(--space-lg);
         }
         
         .error {
-            background: rgba(231, 76, 60, 0.1);
-            border: 2px solid rgba(231, 76, 60, 0.3);
-            color: var(--red-accent);
+            background: var(--brand-card);
+            border: 2px solid #FF4757;
+            color: #FF4757;
             padding: var(--space-2xl);
-            border-radius: var(--radius-xl);
+            border-radius: var(--border-radius);
             text-align: center;
             margin: var(--space-lg) 0;
+            box-shadow: var(--card-shadow);
         }
         
         .no-results {
@@ -563,7 +588,6 @@
         @media (max-width: 1024px) {
             .hackathons-grid {
                 grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-                gap: var(--space-lg);
             }
         }
         
@@ -576,12 +600,12 @@
             
             .hackathons-grid {
                 grid-template-columns: 1fr;
-                gap: var(--space-lg);
             }
             
             .filters-container {
                 flex-direction: column;
                 align-items: stretch;
+                gap: var(--space-md);
             }
             
             .filter-group {
@@ -600,6 +624,7 @@
             
             .nav-tabs {
                 flex-direction: column;
+                gap: var(--space-xs);
             }
             
             .nav-tab {
@@ -641,8 +666,8 @@
         }
         
         /* Focus styles for accessibility */
-        *:focus {
-            outline: 2px solid var(--primary-blue);
+        *:focus-visible {
+            outline: 2px solid var(--accent-green);
             outline-offset: 2px;
         }
         
@@ -684,7 +709,7 @@
                     <span class="filter-label">
                         <i class="fas fa-tag"></i> Event Type
                     </span>
-                    <select class="filter-dropdown" id="event-type-filter">
+                    <select class="filter-dropdown" id="event-type-filter" aria-label="Filter by event type">
                         <option value="">All Types</option>
                         <option value="hackathon">Hackathon</option>
                         <option value="webinar">Webinar</option>
@@ -696,7 +721,7 @@
                     <span class="filter-label">
                         <i class="fas fa-globe"></i> Region
                     </span>
-                    <select class="filter-dropdown" id="region-filter">
+                    <select class="filter-dropdown" id="region-filter" aria-label="Filter by region">
                         <option value="">All Regions</option>
                         <option value="online">Online</option>
                         <option value="north-america">North America</option>
@@ -746,16 +771,16 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs">
-            <button class="nav-tab active" data-status="ongoing">
-                <i class="fas fa-circle" style="color: var(--red-accent);"></i>
+            <button class="nav-tab active" data-status="ongoing" aria-label="View live hackathons">
+                <i class="fas fa-circle" style="color: #FF4757;"></i>
                 Live Now
             </button>
-            <button class="nav-tab" data-status="upcoming">
-                <i class="fas fa-clock" style="color: var(--yellow-accent);"></i>
+            <button class="nav-tab" data-status="upcoming" aria-label="View upcoming hackathons">
+                <i class="fas fa-clock" style="color: #FFA502;"></i>
                 Upcoming
             </button>
-            <button class="nav-tab" data-status="completed">
-                <i class="fas fa-check" style="color: var(--green-accent);"></i>
+            <button class="nav-tab" data-status="completed" aria-label="View completed hackathons">
+                <i class="fas fa-check" style="color: #2ED573;"></i>
                 Completed
             </button>
         </div>
@@ -937,7 +962,7 @@
                     
                     <p class="hackathon-description">${hackathon.description}</p>
                     
-                    <a href="${hackathon.registration_link}" target="_blank" class="action-btn">
+                    <a href="${hackathon.registration_link}" target="_blank" class="action-btn" aria-label="${actionText} for ${hackathon.name}">
                         ${actionText} <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
