@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hackathon Tracker 2025 - Live Updates</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Eucalyptus:wght@400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -15,7 +15,7 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f7f9fc;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             min-height: 100vh;
             color: #1e2938;
             line-height: 1.6;
@@ -23,74 +23,68 @@
         
         /* Header Styles */
         .header {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            background: transparent;
             color: white;
-            padding: 60px 0 80px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.05)"><polygon points="0,0 1000,0 1000,100 500,20 0,100"/></svg>') no-repeat;
-            background-size: cover;
+            padding: 40px 0 60px;
+            text-align: center;
         }
         
         .header-content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            gap: 12px;
-        }
-        
-        .logo i {
-            font-size: 2rem;
-            color: #60a5fa;
         }
         
         .header h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             margin-bottom: 20px;
             font-weight: 700;
             letter-spacing: -0.02em;
+            color: white;
         }
         
         .header-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             opacity: 0.9;
             margin-bottom: 30px;
             font-weight: 400;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            color: rgba(255, 255, 255, 0.8);
         }
         
-        .update-info {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.1);
+        /* Filter Section */
+        .filters-section {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        
+        .filters-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .filter-dropdown {
+            background: white;
+            border: none;
+            border-radius: 8px;
             padding: 12px 20px;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1rem;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            min-width: 150px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-dropdown:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         /* Container and Layout */
@@ -100,43 +94,133 @@
             padding: 0 20px;
         }
         
-        .main-content {
-            margin-top: -40px;
+        /* Hackathon Cards Grid */
+        .hackathons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .hackathon-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
             position: relative;
-            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Statistics Grid */
-        .stats-section {
-            margin-bottom: 50px;
+        .hackathon-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         
+        /* Status and Location Tags */
+        .card-tags {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .status-tag {
+            background: #00ed64;
+            color: #0d4f3c;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .location-tag {
+            background: #f3f4f6;
+            color: #6b7280;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Title */
+        .hackathon-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        /* Date Badge */
+        .date-badge {
+            background: #00ed64;
+            color: #0d4f3c;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        /* Description */
+        .hackathon-description {
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        /* Action Button */
+        .action-btn {
+            background: transparent;
+            color: #1f2937;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0;
+            transition: color 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .action-btn:hover {
+            color: #00bf63;
+        }
+        
+        .action-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .action-btn:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Statistics Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
+            margin-bottom: 50px;
         }
         
         .stat-card {
             background: white;
-            padding: 35px 25px;
-            border-radius: 16px;
+            padding: 30px 25px;
+            border-radius: 24px;
             text-align: center;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--accent-color);
         }
         
         .stat-card:hover {
@@ -148,12 +232,12 @@
             width: 60px;
             height: 60px;
             margin: 0 auto 20px;
-            background: var(--accent-light);
-            border-radius: 12px;
+            background: #f0fdf4;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--accent-color);
+            color: #00bf63;
             font-size: 24px;
         }
         
@@ -161,7 +245,7 @@
             font-size: 2.5rem;
             margin-bottom: 8px;
             font-weight: 700;
-            color: var(--accent-color);
+            color: #1f2937;
         }
         
         .stat-card p {
@@ -170,45 +254,22 @@
             font-weight: 500;
         }
         
-        /* Color scheme for different stats */
-        .ongoing-stat {
-            --accent-color: #dc2626;
-            --accent-light: #fee2e2;
-        }
-        
-        .upcoming-stat {
-            --accent-color: #d97706;
-            --accent-light: #fef3c7;
-        }
-        
-        .completed-stat {
-            --accent-color: #059669;
-            --accent-light: #d1fae5;
-        }
-        
-        .prizes-stat {
-            --accent-color: #7c3aed;
-            --accent-light: #ede9fe;
-        }
-        
         /* Navigation Tabs */
-        .nav-section {
-            margin-bottom: 40px;
-        }
-        
-        .status-tabs {
+        .nav-tabs {
             display: flex;
             justify-content: center;
+            gap: 0;
             background: white;
             border-radius: 16px;
             padding: 8px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
-            flex-wrap: wrap;
-            gap: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            overflow: hidden;
         }
         
-        .tab-btn {
+        .nav-tab {
+            flex: 1;
             padding: 14px 24px;
             border: none;
             background: transparent;
@@ -218,271 +279,115 @@
             font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex: 1;
-            justify-content: center;
-            min-width: 140px;
             font-family: inherit;
         }
         
-        .tab-btn:hover {
-            background: #f3f4f6;
+        .nav-tab:hover {
+            background: #f9fafb;
             color: #374151;
         }
         
-        .tab-btn.active {
-            background: #1e40af;
-            color: white;
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        .nav-tab.active {
+            background: #00ed64;
+            color: #0d4f3c;
         }
         
-        .tab-btn i {
-            font-size: 16px;
-        }
-        
-        /* Hackathon Cards */
-        .hackathons-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 30px;
-        }
-        
-        .hackathon-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hackathon-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--status-color);
-        }
-        
-        .hackathon-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-        }
-        
-        .hackathon-card.status-ongoing {
-            --status-color: #dc2626;
-        }
-        
-        .hackathon-card.status-upcoming {
-            --status-color: #d97706;
-        }
-        
-        .hackathon-card.status-completed {
-            --status-color: #059669;
-        }
-        
-        .hackathon-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            gap: 15px;
-        }
-        
-        .hackathon-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #111827;
-            flex: 1;
-            line-height: 1.3;
-        }
-        
-        .status-badge {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .status-ongoing {
-            background: #dc2626;
-        }
-        
-        .status-upcoming {
-            background: #d97706;
-        }
-        
-        .status-completed {
-            background: #059669;
-        }
-        
-        .hackathon-description {
-            color: #6b7280;
-            margin-bottom: 25px;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        
-        .hackathon-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 25px;
-        }
-        
-        .detail-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.95rem;
-            color: #374151;
-        }
-        
-        .detail-item i {
-            color: #1e40af;
-            width: 18px;
-            font-size: 16px;
-        }
-        
-        .hackathon-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        
-        .tag {
-            background: #f3f4f6;
-            color: #374151;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid #e5e7eb;
-            transition: all 0.2s ease;
-        }
-        
-        .tag:hover {
-            background: #e5e7eb;
-        }
-        
-        .time-info {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 20px;
-            color: #475569;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .time-info i {
-            color: #3b82f6;
-        }
-        
-        .register-btn {
-            background: #1e40af;
-            color: white;
-            padding: 16px 24px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            width: 100%;
-            justify-content: center;
-            font-size: 1rem;
-            font-family: inherit;
-        }
-        
-        .register-btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
-        }
-        
-        .register-btn.disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        /* Utility States */
+        /* Loading and Error States */
         .loading {
             text-align: center;
             padding: 80px 20px;
-            color: #6b7280;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1.2rem;
         }
         
         .loading i {
             font-size: 2rem;
-            color: #3b82f6;
+            color: #00ed64;
             margin-bottom: 20px;
         }
         
         .error {
-            background: #fef2f2;
-            border: 2px solid #fecaca;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
             color: #dc2626;
             padding: 40px;
-            border-radius: 16px;
+            border-radius: 24px;
             text-align: center;
             margin: 20px 0;
         }
         
-        .error h3 {
-            margin-bottom: 15px;
-            color: #991b1b;
-        }
-        
         .no-results {
             text-align: center;
-            color: #6b7280;
+            color: rgba(255, 255, 255, 0.8);
             padding: 60px 20px;
             font-size: 1.1rem;
         }
         
         .no-results i {
             font-size: 3rem;
-            color: #d1d5db;
+            color: rgba(255, 255, 255, 0.3);
             margin-bottom: 20px;
         }
         
         .no-results h3 {
-            color: #374151;
+            color: white;
             margin-bottom: 10px;
+        }
+        
+        /* Status-specific styles */
+        .status-ongoing .status-tag {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .status-ongoing .date-badge {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .status-upcoming .status-tag {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .status-upcoming .date-badge {
+            background: #fffbeb;
+            color: #d97706;
+        }
+        
+        .status-completed .status-tag {
+            background: #10b981;
+            color: white;
+        }
+        
+        .status-completed .date-badge {
+            background: #ecfdf5;
+            color: #059669;
+        }
+        
+        /* Update info */
+        .update-info {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            margin-top: 20px;
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
-            .header {
-                padding: 40px 0 60px;
+            .hackathons-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
             }
             
-            .header h1 {
-                font-size: 2.5rem;
+            .filters-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-dropdown {
+                width: 100%;
+                max-width: 300px;
             }
             
             .stats-grid {
@@ -490,18 +395,8 @@
                 gap: 20px;
             }
             
-            .hackathons-container {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .status-tabs {
+            .nav-tabs {
                 flex-direction: column;
-            }
-            
-            .tab-btn {
-                min-width: unset;
-                width: 100%;
             }
             
             .hackathon-card {
@@ -510,25 +405,13 @@
         }
         
         @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-            
             .stats-grid {
                 grid-template-columns: 1fr;
             }
             
-            .hackathon-details {
-                grid-template-columns: 1fr;
-            }
-            
-            .hackathon-header {
+            .card-tags {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            
-            .status-badge {
-                align-self: flex-start;
             }
         }
     </style>
@@ -537,79 +420,83 @@
     <!-- Header Section -->
     <div class="header">
         <div class="header-content">
-            <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Academic Computing Initiative</span>
-            </div>
-            <h1>Hackathon Tracker 2025</h1>
+            <h1>Events and Hackathons</h1>
             <p class="header-subtitle">Connect with experts, both online and in-person, to learn about the world's most versatile, modern competitions and collaborative learning experiences.</p>
             <div class="update-info">
                 <i class="fas fa-sync-alt"></i>
-                <span>Last Updated: <span id="last-updated">Loading...</span></span>
+                Last Updated: <span id="last-updated">Loading...</span>
             </div>
         </div>
     </div>
 
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <div class="filters-container">
+            <select class="filter-dropdown" id="event-type-filter">
+                <option value="">Event Type</option>
+                <option value="hackathon">Hackathon</option>
+                <option value="webinar">Webinar</option>
+                <option value="workshop">Workshop</option>
+                <option value="competition">Competition</option>
+            </select>
+            <select class="filter-dropdown" id="region-filter">
+                <option value="">Region</option>
+                <option value="online">Online</option>
+                <option value="north-america">North America</option>
+                <option value="europe">Europe</option>
+                <option value="asia">Asia</option>
+                <option value="global">Global</option>
+            </select>
+        </div>
+    </div>
+
     <div class="container">
-        <div class="main-content">
-            <!-- Statistics Section -->
-            <section class="stats-section">
-                <div class="stats-grid">
-                    <div class="stat-card ongoing-stat">
-                        <div class="icon">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <h3 id="ongoing-count">0</h3>
-                        <p>Currently Active</p>
-                    </div>
-                    <div class="stat-card upcoming-stat">
-                        <div class="icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <h3 id="upcoming-count">0</h3>
-                        <p>Registration Open</p>
-                    </div>
-                    <div class="stat-card completed-stat">
-                        <div class="icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3 id="completed-count">0</h3>
-                        <p>Recently Completed</p>
-                    </div>
-                    <div class="stat-card prizes-stat">
-                        <div class="icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <h3 id="total-prizes">$0</h3>
-                        <p>Total Prize Pool</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Navigation Section -->
-            <section class="nav-section">
-                <div class="status-tabs">
-                    <button class="tab-btn active" data-status="ongoing">
+        <!-- Statistics Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon">
                         <i class="fas fa-play"></i>
-                        <span>Active Events</span>
-                    </button>
-                    <button class="tab-btn" data-status="upcoming">
-                        <i class="fas fa-calendar-plus"></i>
-                        <span>Upcoming Events</span>
-                    </button>
-                    <button class="tab-btn" data-status="completed">
-                        <i class="fas fa-archive"></i>
-                        <span>Past Events</span>
-                    </button>
+                    </div>
+                    <h3 id="ongoing-count">0</h3>
+                    <p>Currently Running</p>
                 </div>
-            </section>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 id="upcoming-count">0</h3>
+                    <p>Registration Open</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 id="completed-count">0</h3>
+                    <p>Recently Completed</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 id="total-prizes">$0</h3>
+                    <p>Total Prize Pool</p>
+                </div>
+            </div>
+        </section>
 
-            <!-- Hackathons Container -->
-            <div id="hackathons-container">
-                <div class="loading">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <div>Loading hackathon data...</div>
-                </div>
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-status="ongoing">Live Now</button>
+            <button class="nav-tab" data-status="upcoming">Upcoming</button>
+            <button class="nav-tab" data-status="completed">Completed</button>
+        </div>
+
+        <!-- Hackathons Grid -->
+        <div id="hackathons-container">
+            <div class="loading">
+                <i class="fas fa-spinner fa-spin"></i>
+                <div>Loading hackathon data...</div>
             </div>
         </div>
     </div>
@@ -617,6 +504,7 @@
     <script>
         let hackathonData = null;
         let currentStatus = 'ongoing';
+        let filteredData = null;
 
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
@@ -626,14 +514,52 @@
 
         // Setup event listeners
         function setupEventListeners() {
-            document.querySelectorAll('.tab-btn').forEach(btn => {
+            // Tab navigation
+            document.querySelectorAll('.nav-tab').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     currentStatus = this.dataset.status;
                     displayHackathons();
                 });
             });
+
+            // Filter dropdowns
+            document.getElementById('event-type-filter').addEventListener('change', applyFilters);
+            document.getElementById('region-filter').addEventListener('change', applyFilters);
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const eventType = document.getElementById('event-type-filter').value;
+            const region = document.getElementById('region-filter').value;
+            
+            if (!hackathonData) return;
+            
+            filteredData = JSON.parse(JSON.stringify(hackathonData)); // Deep copy
+            
+            // Apply filters to each status category
+            ['ongoing', 'upcoming', 'completed'].forEach(status => {
+                if (filteredData[status]) {
+                    filteredData[status] = filteredData[status].filter(hackathon => {
+                        let matches = true;
+                        
+                        if (eventType && !hackathon.tags.some(tag => 
+                            tag.toLowerCase().includes(eventType.toLowerCase())
+                        )) {
+                            matches = false;
+                        }
+                        
+                        if (region && !hackathon.location.toLowerCase().includes(region.toLowerCase())) {
+                            matches = false;
+                        }
+                        
+                        return matches;
+                    });
+                }
+            });
+            
+            displayHackathons();
         }
 
         // Load hackathon data
@@ -644,6 +570,7 @@
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 hackathonData = await response.json();
+                filteredData = JSON.parse(JSON.stringify(hackathonData));
                 console.log('Loaded hackathon data:', hackathonData);
                 updateStatistics();
                 displayHackathons();
@@ -686,125 +613,69 @@
             }
         }
 
-        // Display hackathons based on current tab
+        // Display hackathons based on current tab and filters
         function displayHackathons() {
-            if (!hackathonData) return;
+            const dataToUse = filteredData || hackathonData;
+            if (!dataToUse) return;
 
             const container = document.getElementById('hackathons-container');
-            let hackathons = hackathonData[currentStatus] || [];
+            let hackathons = dataToUse[currentStatus] || [];
 
             if (hackathons.length === 0) {
                 container.innerHTML = `
                     <div class="no-results">
                         <i class="fas fa-search"></i>
-                        <h3>No ${currentStatus} hackathons</h3>
-                        <p>Check back later for updates!</p>
+                        <h3>No ${currentStatus} hackathons found</h3>
+                        <p>Try adjusting your filters or check back later for updates!</p>
                     </div>
                 `;
                 return;
             }
 
             const hackathonsHTML = hackathons.map(hackathon => createHackathonCard(hackathon)).join('');
-            container.innerHTML = `<div class="hackathons-container">${hackathonsHTML}</div>`;
+            container.innerHTML = `<div class="hackathons-grid">${hackathonsHTML}</div>`;
         }
 
         // Create hackathon card HTML
         function createHackathonCard(hackathon) {
             const statusClass = `status-${hackathon.status}`;
-            const registrationButton = getRegistrationButton(hackathon);
-            const timeInfo = getTimeInfo(hackathon);
+            const statusLabel = hackathon.status === 'ongoing' ? 'LIVE NOW' : 
+                               hackathon.status === 'upcoming' ? 'UPCOMING' : 'COMPLETED';
+            
+            const actionText = hackathon.status === 'completed' ? 'View Results' : 
+                              hackathon.status === 'ongoing' ? 'Join Now' : 'Learn More';
+            
+            const dateText = hackathon.status === 'ongoing' ? 
+                `Ends ${formatDate(hackathon.end_date)}` :
+                hackathon.status === 'upcoming' ?
+                `${formatDate(hackathon.start_date)} - ${formatDate(hackathon.end_date)}` :
+                `Ended ${formatDate(hackathon.end_date)}`;
 
             return `
                 <div class="hackathon-card ${statusClass}">
-                    <div class="hackathon-header">
-                        <h3 class="hackathon-title">${hackathon.name}</h3>
-                        <span class="status-badge ${statusClass}">
-                            <i class="fas fa-${hackathon.status === 'ongoing' ? 'play' : 
-                                             hackathon.status === 'upcoming' ? 'calendar' : 
-                                             'check'}"></i>
-                            ${hackathon.status === 'ongoing' ? 'Live' : 
-                              hackathon.status === 'upcoming' ? 'Soon' : 
-                              'Completed'}
-                        </span>
+                    <div class="card-tags">
+                        <span class="status-tag">${statusLabel}</span>
+                        <span class="location-tag">${hackathon.location.toUpperCase()}</span>
                     </div>
+                    
+                    <h3 class="hackathon-title">${hackathon.name}</h3>
+                    
+                    <div class="date-badge">${dateText}</div>
                     
                     <p class="hackathon-description">${hackathon.description}</p>
                     
-                    <div class="hackathon-details">
-                        <div class="detail-item">
-                            <i class="fas fa-calendar"></i>
-                            <span>${formatDate(hackathon.start_date)} - ${formatDate(hackathon.end_date)}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>${hackathon.location}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-trophy"></i>
-                            <span>${hackathon.prizes}</span>
-                        </div>
-                        <div class="detail-item">
-                            <i class="fas fa-users"></i>
-                            <span>${hackathon.organizer}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="hackathon-tags">
-                        ${hackathon.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                    
-                    ${timeInfo ? `<div class="time-info">${timeInfo}</div>` : ''}
-                    
-                    ${registrationButton}
+                    <a href="${hackathon.registration_link}" target="_blank" class="action-btn">
+                        ${actionText} <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             `;
-        }
-
-        // Get registration button based on status
-        function getRegistrationButton(hackathon) {
-            if (hackathon.status === 'completed') {
-                return `<button class="register-btn disabled"><i class="fas fa-archive"></i> Event Completed</button>`;
-            } else {
-                const buttonText = hackathon.status === 'ongoing' ? 'Join Now' : 'Register';
-                const iconClass = hackathon.status === 'ongoing' ? 'fa-rocket' : 'fa-user-plus';
-                return `<a href="${hackathon.registration_link}" target="_blank" class="register-btn">
-                    <i class="fas ${iconClass}"></i> ${buttonText}
-                </a>`;
-            }
-        }
-
-        // Get time information
-        function getTimeInfo(hackathon) {
-            const now = new Date();
-            const startDate = new Date(hackathon.start_date);
-            const endDate = new Date(hackathon.end_date);
-            const regDeadline = new Date(hackathon.registration_deadline);
-
-            if (hackathon.status === 'ongoing') {
-                const daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
-                return `<i class="fas fa-clock"></i> ${daysLeft} days remaining`;
-            } else if (hackathon.status === 'upcoming') {
-                const daysToStart = Math.ceil((startDate - now) / (1000 * 60 * 60 * 24));
-                const daysToRegDeadline = Math.ceil((regDeadline - now) / (1000 * 60 * 60 * 24));
-                
-                if (now > regDeadline) {
-                    return `<i class="fas fa-lock"></i> Registration closed • Starts in ${daysToStart} days`;
-                } else {
-                    return `<i class="fas fa-calendar-check"></i> Starts in ${daysToStart} days • Register by ${formatDate(hackathon.registration_deadline)}`;
-                }
-            } else if (hackathon.status === 'completed') {
-                const daysPassed = Math.floor((now - endDate) / (1000 * 60 * 60 * 24));
-                return `<i class="fas fa-history"></i> Ended ${daysPassed} days ago`;
-            }
-            return '';
         }
 
         // Format date for display
         function formatDate(dateString) {
             return new Date(dateString).toLocaleDateString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric'
+                month: 'long',
+                day: 'numeric'
             });
         }
 
