@@ -58,6 +58,27 @@ jobs:
         git commit -m "🚀 Auto-update hackathon data - $(date '+%Y-%m-%d %H:%M:%S UTC')"
         # Ensure local branch is rebased to avoid non-fast-forward push errors
         git pull --rebase origin main
+        
+        # CI AUTOMATION: Always resolve rebase conflicts for last_update.txt and hackathons.json in favor of workflow for automation reliability.
+        while [ -d ".git/rebase-merge" ] || [ -d ".git/rebase-apply" ]; do
+          # Check if rebase is in progress
+          if git status | grep -q "rebase in progress"; then
+            # Resolve conflicts by keeping our version (workflow version)
+            if [ -f "data/last_update.txt" ]; then
+              git checkout --ours data/last_update.txt
+              git add data/last_update.txt
+            fi
+            if [ -f "data/hackathons.json" ]; then
+              git checkout --ours data/hackathons.json
+              git add data/hackathons.json
+            fi
+            # Continue rebase
+            git rebase --continue || break
+          else
+            break
+          fi
+        done
+        
         git push
     
     - name: Create summary
