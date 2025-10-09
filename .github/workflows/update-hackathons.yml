@@ -2,25 +2,21 @@ name: Update Hackathons Data
 
 on:
   schedule:
-    # Run every 6 hours
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
-    # Allow manual triggering
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Allow manual triggering
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - 'scripts/**'
-      - '.github/workflows/**'
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+      - '.github/workflows/update-hackathons.yml'
 
 jobs:
   fetch-hackathons:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write
+      
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -69,14 +65,16 @@ jobs:
         echo "## Hackathon Data Update Summary" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         if [ -f "data/hackathons.json" ]; then
-          HACKATHON_COUNT=$(python -c "import json; data=json.load(open('data/hackathons.json')); print(len(data))")
-          ACTIVE_COUNT=$(python -c "import json; data=json.load(open('data/hackathons.json')); print(len([h for h in data if h.get('status') == 'active']))")
-          UPCOMING_COUNT=$(python -c "import json; data=json.load(open('data/hackathons.json')); print(len([h for h in data if h.get('status') == 'upcoming']))")
+          ONGOING_COUNT=$(python -c "import json; data=json.load(open('data/hackathons.json')); print(len(data.get('ongoing', [])))")
+          UPCOMING_COUNT=$(python -c "import json; data=json.load(open('data/hackathons.json')); print(len(data.get('upcoming', [])))")
+          COMPLETED_COUNT=$(python -c "import json; data=json.load(open('data/hackathons.json')); print(len(data.get('completed', [])))")
+          TOTAL_COUNT=$((ONGOING_COUNT + UPCOMING_COUNT + COMPLETED_COUNT))
           
           echo "📊 **Statistics:**" >> $GITHUB_STEP_SUMMARY
-          echo "- Total Hackathons: $HACKATHON_COUNT" >> $GITHUB_STEP_SUMMARY
-          echo "- Active: $ACTIVE_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- Total Hackathons: $TOTAL_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- Ongoing: $ONGOING_COUNT" >> $GITHUB_STEP_SUMMARY
           echo "- Upcoming: $UPCOMING_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- Completed: $COMPLETED_COUNT" >> $GITHUB_STEP_SUMMARY
         else
           echo "❌ No hackathon data found" >> $GITHUB_STEP_SUMMARY
         fi
