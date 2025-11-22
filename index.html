@@ -1,281 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hackathon Tracker 2025</title>
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackTracker_2025 // Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
 
-  <style>
-    :root {
-      /* Base palette */
-      --bg: #f7f8fa;
-      --surface: #ffffff;
-      --text: #1c232b;
-      --muted: #5d6b7a;
-      --border: rgba(0, 0, 0, 0.08);
-      --shadow-1: 0 6px 18px rgba(28, 35, 43, 0.06);
-      --shadow-2: 0 10px 28px rgba(28, 35, 43, 0.08);
-      /* Accent */
-      --accent: #3b82f6; /* clear blue */
-      --accent-weak: rgba(59, 130, 246, 0.12);
-      --accent-strong: #1d4ed8;
-      /* Radius */
-      --r-sm: 10px;
-      --r-md: 14px;
-      --r-lg: 18px;
-      --r-pill: 999px;
-      /* Spacing */
-      --space-1: 6px;
-      --space-2: 10px;
-      --space-3: 14px;
-      --space-4: 18px;
-      --space-5: 24px;
-      --space-6: 32px;
-      --space-7: 48px;
-    }
+    <style>
+        :root {
+            /* Palette: Cyber Dark */
+            --bg-app: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #263346;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            
+            /* Accents */
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --accent-secondary: #ec4899; /* Pink */
+            
+            /* Status Colors */
+            --s-ongoing: #10b981;
+            --s-upcoming: #3b82f6;
+            --s-completed: #64748b;
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Poppins, Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+            --radius: 16px;
+            --font-ui: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
 
-    a { color: inherit; text-decoration: none; }
+        * { box-sizing: border-box; outline: none; }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 var(--space-5) var(--space-6);
-    }
+        body {
+            margin: 0;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
 
-    /* Header */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    .site-header-inner { display: flex; align-items: center; gap: var(--space-5); padding: var(--space-4) 0; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; }
-    .brand .logo { width: 28px; height: 28px; display: grid; place-items: center; color: #fff; background: var(--accent); border-radius: 6px; box-shadow: var(--shadow-1); }
+        /* --- Layout Utilities --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .flex-gap { display: flex; gap: 12px; align-items: center; }
+        .hidden { display: none !important; }
 
-    /* Nav tabs */
-    .tabs { display: flex; gap: 8px; padding: 4px; background: #eef2ff; border-radius: var(--r-pill); }
-    .tab { padding: 8px 14px; border-radius: var(--r-pill); color: #1e293b; font-weight: 500; }
-    .tab[aria-current="page"], .tab.active { background: #fff; color: var(--accent-strong); box-shadow: 0 1px 0 rgba(0,0,0,0.04), inset 0 0 0 1px #e2e8f0; }
-    .tab:hover { background: #ffffff; color: var(--accent); }
+        /* --- Header --- */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 100;
+        }
 
-    /* Toolbar */
-    .toolbar { display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center; margin-left: auto; }
-    .search { position: relative; }
-    .search input {
-      width: 260px; max-width: 100%;
-      padding: 10px 36px 10px 12px; border-radius: var(--r-pill);
-      border: 1px solid var(--border); background: #fff; color: var(--text);
-    }
-    .search i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+        .logo {
+            font-family: var(--font-code);
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .logo span { color: var(--accent-primary); }
 
-    select, .chip {
-      padding: 10px 12px; border-radius: var(--r-pill); border: 1px solid var(--border); background: #fff;
-      color: var(--text); font-weight: 500;
-    }
+        /* --- Controls Toolbar --- */
+        .toolbar {
+            margin: 40px 0;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+        }
 
-    /* Page title */
-    .page-title { margin: var(--space-6) 0 var(--space-4); display: flex; align-items: end; gap: 14px; }
-    .page-title h1 { font-size: 28px; line-height: 1.2; margin: 0; font-weight: 700; }
-    .page-title .meta { color: var(--muted); font-size: 14px; }
+        /* Tabs */
+        .toggle-switch {
+            background: var(--bg-card);
+            padding: 4px;
+            border-radius: 12px;
+            display: inline-flex;
+            border: 1px solid var(--border);
+        }
+        .toggle-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .toggle-btn.active {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
 
-    /* Cards grid */
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--space-5); }
-    @media (max-width: 1200px) { .grid { grid-template-columns: repeat(8, 1fr); } }
-    @media (max-width: 860px) { .grid { grid-template-columns: repeat(4, 1fr); } .search input { width: 200px; } }
-    @media (max-width: 540px) { .grid { grid-template-columns: repeat(2, 1fr); } .toolbar { width: 100%; } }
+        /* Search */
+        .search-wrapper {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 16px; top: 50%; transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        .search-input {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px 16px 14px 44px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .search-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
 
-    .card {
-      grid-column: span 4;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: var(--space-5);
-      box-shadow: var(--shadow-1);
-      display: flex; flex-direction: column; gap: 12px; min-height: 220px;
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-    .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+        /* Filters */
+        .filter-select {
+            appearance: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px 32px 14px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+        }
 
-    .card .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: var(--r-pill); font-size: 12px; font-weight: 600; }
-    .badge.ongoing { color: #065f46; background: #d1fae5; }
-    .badge.upcoming { color: #1e40af; background: #dbeafe; }
-    .badge.completed { color: #6b7280; background: #f3f4f6; }
+        /* --- Grid & Cards --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            padding-bottom: 80px;
+        }
 
-    .title { font-weight: 700; font-size: 18px; line-height: 1.4; }
-    .muted { color: var(--muted); font-size: 14px; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s, border-color 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .card .cta {
-      margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap;
-    }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: var(--r-pill); border: 1px solid var(--border); background: #fff; color: var(--text); font-weight: 600; }
-    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
-    .btn:hover { box-shadow: 0 1px 0 rgba(0,0,0,0.04); }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
 
-    /* Footer */
-    footer { color: var(--muted); font-size: 13px; text-align: center; padding: var(--space-7) 0 var(--space-6); }
-  </style>
+        /* Glow effect */
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+            opacity: 0; transition: 0.2s;
+        }
+        .card:hover::before { opacity: 1; }
+
+        /* Card Header */
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        
+        .status-badge {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .st-ongoing { background: rgba(16, 185, 129, 0.15); color: var(--s-ongoing); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .st-upcoming { background: rgba(59, 130, 246, 0.15); color: var(--s-upcoming); border: 1px solid rgba(59, 130, 246, 0.2); }
+        .st-completed { background: rgba(100, 116, 139, 0.15); color: var(--s-completed); border: 1px solid rgba(100, 116, 139, 0.2); }
+
+        .org-logo {
+            width: 40px; height: 40px;
+            background: #0f172a;
+            border-radius: 8px;
+            display: grid; place-items: center;
+            font-size: 1.2rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Card Content */
+        .card-title {
+            font-size: 1.25rem; font-weight: 700; margin: 0 0 6px 0;
+            line-height: 1.3;
+        }
+        .card-org {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* Data Grid inside Card */
+        .data-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+            background: rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .data-point { display: flex; flex-direction: column; gap: 4px; }
+        .data-label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-secondary); letter-spacing: 0.5px; }
+        .data-value { font-family: var(--font-code); font-size: 0.85rem; font-weight: 500; }
+
+        /* Actions */
+        .actions { margin-top: auto; display: flex; gap: 10px; }
+        .btn {
+            flex: 1; padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: var(--accent-primary); color: white; border: none;
+        }
+        .btn-primary:hover {
+            background: #4f46e5;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+        .btn-secondary {
+            background: transparent; color: var(--text-primary); border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.05); border-color: var(--text-secondary);
+        }
+
+        /* --- Toast Notification --- */
+        #toast {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--text-primary); color: var(--bg-app);
+            padding: 12px 24px; border-radius: 30px;
+            font-weight: 600; font-family: var(--font-ui);
+            opacity: 0; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 200; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: flex; align-items: center; gap: 8px;
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .toolbar { grid-template-columns: 1fr; gap: 16px; margin: 24px 0; }
+            .toggle-switch { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+            .toggle-btn { justify-content: center; display: flex; }
+        }
+    </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container site-header-inner">
-      <div class="brand">
-        <span class="logo"><i class="fa-solid fa-bolt"></i></span>
-        <span>Hackathon Tracker 2025</span>
-      </div>
 
-      <nav class="tabs" aria-label="Primary">
-        <a href="#all" class="tab active" aria-current="page" id="tab-all"><i class="fa-regular fa-calendar-days"></i> All Hackathons</a>
-        <a href="#india" class="tab" id="tab-india"><i class="fa-solid fa-flag"></i> India Hackathons</a>
-      </nav>
-
-      <div class="toolbar">
-        <div class="search">
-          <input id="search" type="search" placeholder="Search hackathons" aria-label="Search hackathons" />
-          <i class="fa-solid fa-magnifying-glass"></i>
+    <header>
+        <div class="container flex-between">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-code"></i>
+                HACK<span>TRACKER</span>
+            </a>
+            <div style="font-family: var(--font-code); font-size: 0.8rem; color: var(--text-secondary);">
+                v2.5.0 // Beta
+            </div>
         </div>
-        <select id="statusFilter" aria-label="Filter by status">
-          <option value="">All statuses</option>
-          <option value="ongoing">Ongoing</option>
-          <option value="upcoming">Upcoming</option>
-          <option value="completed">Completed</option>
-        </select>
-        <select id="regionFilter" aria-label="Filter by region">
-          <option value="">All regions</option>
-          <option value="India">India</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="North America">North America</option>
-          <option value="South America">South America</option>
-          <option value="Africa">Africa</option>
-          <option value="Oceania">Oceania</option>
-        </select>
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="container">
-    <div class="page-title">
-      <h1 id="pageHeading">All Hackathons</h1>
-      <span class="meta" id="countMeta"></span>
-    </div>
+    <main class="container">
+        <div class="toolbar">
+            <div class="toggle-switch">
+                <button class="toggle-btn active" onclick="setRegion('all')">Global</button>
+                <button class="toggle-btn" onclick="setRegion('india')">India Only</button>
+            </div>
 
-    <section id="cards" class="grid" aria-live="polite"></section>
-  </main>
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search hackathons, stacks, or cities..." autocomplete="off">
+            </div>
 
-  <footer>
-    <div class="container">Built with ❤️ • UI simplified and modernized</div>
-  </footer>
+            <select id="statusSelect" class="filter-select">
+                <option value="all">Any Status</option>
+                <option value="ongoing">🟢 Ongoing</option>
+                <option value="upcoming">🔵 Upcoming</option>
+                <option value="completed">⚫ Completed</option>
+            </select>
+        </div>
 
-  <script>
-    // Simple state + demo data loader. If your project fetches from data/ JSON, keep that.
-    const cardsRoot = document.getElementById('cards');
-    const pageHeading = document.getElementById('pageHeading');
-    const countMeta = document.getElementById('countMeta');
-    const tabAll = document.getElementById('tab-all');
-    const tabIndia = document.getElementById('tab-india');
-    const search = document.getElementById('search');
-    const statusFilter = document.getElementById('statusFilter');
-    const regionFilter = document.getElementById('regionFilter');
+        <div class="flex-between" style="margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 1.5rem;">Dashboard</h2>
+            <span id="resultCount" style="font-family: var(--font-code); color: var(--accent-primary);">Loading...</span>
+        </div>
 
-    // Example: you can replace this with your existing fetch from data files
-    async function loadData() {
-      try {
-        const res = await fetch('./data/hackathons.json');
-        if (!res.ok) throw new Error('fallback');
-        return await res.json();
-      } catch (_) {
-        // Fallback minimal sample when offline
-        return [
-          { title: 'Global AI Challenge', organizer: 'OpenAI Labs', region: 'Global', status: 'upcoming', start: '2025-12-01', link: '#'},
-          { title: 'India DevSprint', organizer: 'TechGuild', region: 'India', status: 'ongoing', start: '2025-10-20', link: '#'},
-          { title: 'EU Green Code', organizer: 'EU Council', region: 'Europe', status: 'completed', start: '2025-08-04', link: '#'}
+        <div id="hackathonGrid" class="grid">
+            </div>
+    </main>
+
+    <div id="toast"><i class="fa-solid fa-check"></i> Link copied to clipboard</div>
+
+    <script>
+        // --- DATA ---
+        const hackathons = [
+            { id: 1, title: "Global AI Sprint", org: "OpenAI", location: "San Francisco / Remote", date: "2025-11-20", status: "ongoing", icon: "fa-brain", link: "https://openai.com" },
+            { id: 2, title: "Bengaluru DevFest", org: "Google Developers", location: "Bengaluru, India", date: "2025-12-10", status: "upcoming", icon: "fa-google", link: "#" },
+            { id: 3, title: "ETH India 2025", org: "Ethereum Foundation", location: "Bengaluru, India", date: "2025-12-05", status: "upcoming", icon: "fa-ethereum", link: "#" },
+            { id: 4, title: "CyberDefense CTF", org: "DefCon", location: "Mumbai, India", date: "2025-10-15", status: "completed", icon: "fa-shield-halved", link: "#" },
+            { id: 5, title: "Climate Code", org: "GreenPeace", location: "Berlin, DE", date: "2026-01-15", status: "upcoming", icon: "fa-leaf", link: "#" },
+            { id: 6, title: "FinTech Hack", org: "Stripe", location: "Singapore", date: "2025-11-28", status: "ongoing", icon: "fa-credit-card", link: "#" },
         ];
-      }
-    }
 
-    function cardStatusBadge(status) {
-      const s = (status || '').toLowerCase();
-      if (s === 'ongoing') return '<span class="badge ongoing"><i class="fa-solid fa-circle"></i> Ongoing</span>';
-      if (s === 'completed') return '<span class="badge completed"><i class="fa-regular fa-circle-check"></i> Completed</span>';
-      return '<span class="badge upcoming"><i class="fa-regular fa-clock"></i> Upcoming</span>';
-    }
+        // --- STATE ---
+        let state = {
+            region: 'all',
+            status: 'all',
+            query: ''
+        };
 
-    function render(list) {
-      countMeta.textContent = `${list.length} shown`;
-      cardsRoot.innerHTML = list.map(item => `
-        <article class="card">
-          <div>${cardStatusBadge(item.status)}</div>
-          <div class="title">${item.title}</div>
-          <div class="muted">${item.organizer || ''}</div>
-          <div class="muted"><i class="fa-regular fa-calendar"></i> ${item.start || ''}</div>
-          <div class="muted"><i class="fa-solid fa-location-dot"></i> ${item.region || ''}</div>
-          <div class="cta">
-            <a class="btn primary" href="${item.link || '#'}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> View details</a>
-            <button class="btn" onclick="navigator.clipboard?.writeText('${(item.link||'#').replace(/'/g, "\'")}')"><i class="fa-regular fa-copy"></i> Copy link</button>
-          </div>
-        </article>
-      `).join('');
-    }
+        // --- DOM ---
+        const grid = document.getElementById('hackathonGrid');
+        const searchInput = document.getElementById('searchInput');
+        const statusSelect = document.getElementById('statusSelect');
+        const countLabel = document.getElementById('resultCount');
+        const btns = document.querySelectorAll('.toggle-btn');
 
-    function applyFilters(data, scopeIndia = false) {
-      const q = (search.value || '').trim().toLowerCase();
-      const st = (statusFilter.value || '').toLowerCase();
-      const rg = (regionFilter.value || '').toLowerCase();
+        // --- HELPERS ---
+        function timeText(dateStr, status) {
+            const days = Math.ceil((new Date(dateStr) - new Date()) / (1000 * 60 * 60 * 24));
+            if (status === 'completed') return 'Ended';
+            if (status === 'ongoing') return 'Ends soon';
+            return days > 0 ? `In ${days} days` : 'Today';
+        }
 
-      return data.filter(d => {
-        const inScope = scopeIndia ? (String(d.region||'').toLowerCase().includes('india')) : true;
-        const byQ = !q || [d.title, d.organizer, d.region].some(v => String(v||'').toLowerCase().includes(q));
-        const bySt = !st || String(d.status||'').toLowerCase() === st;
-        const byRg = !rg || String(d.region||'').toLowerCase().includes(rg);
-        return inScope && byQ && bySt && byRg;
-      });
-    }
+        function copyLink(link) {
+            navigator.clipboard.writeText(link);
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
 
-    (async function init() {
-      const data = await loadData();
+        // --- RENDER ---
+        function render() {
+            grid.innerHTML = '';
+            
+            const filtered = hackathons.filter(h => {
+                const matchRegion = state.region === 'all' || (state.region === 'india' && h.location.includes('India'));
+                const matchStatus = state.status === 'all' || state.status === h.status;
+                const matchQuery = h.title.toLowerCase().includes(state.query.toLowerCase()) || 
+                                   h.org.toLowerCase().includes(state.query.toLowerCase());
+                return matchRegion && matchStatus && matchQuery;
+            });
 
-      let scopeIndia = false;
-      function setTab(india) {
-        scopeIndia = india;
-        tabAll.classList.toggle('active', !india);
-        tabAll.setAttribute('aria-current', !india ? 'page' : 'false');
-        tabIndia.classList.toggle('active', india);
-        tabIndia.setAttribute('aria-current', india ? 'page' : 'false');
-        pageHeading.textContent = india ? 'India Hackathons' : 'All Hackathons';
-        render(applyFilters(data, scopeIndia));
-      }
+            countLabel.innerText = `[ ${filtered.length} RECORDS FOUND ]`;
 
-      // initial
-      setTab(false);
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--text-secondary);">
+                        <i class="fa-solid fa-ghost" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <br>No signals found matching criteria.
+                    </div>`;
+                return;
+            }
 
-      // events
-      tabAll.addEventListener('click', (e) => { e.preventDefault(); setTab(false); });
-      tabIndia.addEventListener('click', (e) => { e.preventDefault(); setTab(true); });
-      for (const el of [search, statusFilter, regionFilter]) {
-        el.addEventListener('input', () => render(applyFilters(data, scopeIndia)));
-        el.addEventListener('change', () => render(applyFilters(data, scopeIndia)));
-      }
-    })();
-  </script>
+            filtered.forEach(h => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="org-logo"><i class="fa-brands ${h.icon} fa-fw" style="color:white"></i></div>
+                        <span class="status-badge st-${h.status}">${h.status}</span>
+                    </div>
+                    <div>
+                        <h3 class="card-title">${h.title}</h3>
+                        <div class="card-org">${h.org}</div>
+                    </div>
+                    <div class="data-grid">
+                        <div class="data-point">
+                            <span class="data-label">Timeline</span>
+                            <span class="data-value">${timeText(h.date, h.status)}</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="data-label">Date</span>
+                            <span class="data-value">${h.date}</span>
+                        </div>
+                        <div class="data-point" style="grid-column: span 2">
+                            <span class="data-label">Location</span>
+                            <span class="data-value"><i class="fa-solid fa-location-dot" style="font-size:0.7em; margin-right:5px"></i> ${h.location}</span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <a href="${h.link}" class="btn btn-primary">Visit <i class="fa-solid fa-arrow-right"></i></a>
+                        <button onclick="copyLink('${h.link}')" class="btn btn-secondary"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- CONTROLLER ---
+        window.setRegion = (r) => {
+            state.region = r;
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            render();
+        };
+
+        searchInput.addEventListener('input', (e) => {
+            state.query = e.target.value;
+            render();
+        });
+
+        statusSelect.addEventListener('change', (e) => {
+            state.status = e.target.value;
+            render();
+        });
+
+        // Init
+        render();
+
+    </script>
 </body>
 </html>
